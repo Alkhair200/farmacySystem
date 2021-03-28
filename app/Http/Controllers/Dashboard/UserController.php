@@ -6,14 +6,35 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+// use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
 
-    public function index()
+    function __construct()
     {
-        $users = User::all();
+        // Read Create Update Delete 
+        $this->middleware(['permission:users_read'])->only('index');
+        $this->middleware(['permission:users_create'])->only('create');
+        $this->middleware(['permission:users_update'])->only('edit');
+        $this->middleware(['permission:users_delete'])->only('destroy');
+
+    } // end of construct
+
+    
+    public function index(Request $request)
+    {
+       $users = User::whereRoleIs('admin')->where(function($q) use ($request){
+
+       return $q->when($request->search, function($query) use($request) {
+
+                  return $query->where('first_name' ,'like' ,'%' .$request->search .'%')
+                    ->orWhere('last_name' ,'like' ,'%' .$request->search .'%');
+        });
+       })->latest()->paginate(PAGINATION_COUNT);
+
         return view("dashboard.users.index" ,compact("users"));
+
     } // end of index
 
 
@@ -41,48 +62,47 @@ class UserController extends Controller
          
     } // end of store
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
+ 
+    // public function show(User $user)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(User $user)
     {
-        //
-    }
+        return view('dashboard.users.edit' ,compact('user'));
+        
+    } // end of edit
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, User $user)
     {
-        //
-    }
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+            'UserJob' => 'required',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+        $request_data = $request->except(['permissions']);
+
+        $user->update($request_data);
+
+        $user->syncPermissions($request->permissions);
+
+        session()->flash('success' ,__('site.updated_successfully'));
+        return redirect()->route('dashboard.users.index');
+    } // end of update
+
+ 
     public function destroy(User $user)
     {
-        //
-    }
+        $user->delete();
+         session()->flash('success' ,__('site.deleted_successfully'));
+        return redirect()->route('dashboard.users.index');
+
+    }// end of destroy
 }

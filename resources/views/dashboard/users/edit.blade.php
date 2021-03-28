@@ -6,54 +6,54 @@
             <ol class="breadcrumb">
             <li><a href="{{route('dashboard.index')}}"><i class="fa fa-dashboard"></i>@lang('site.dashboard')</a></li>
                 <li><a href="{{route('dashboard.users.index')}}">@lang('site.users')</a></li>
-                <li class="active">@lang('site.add')</li>
+                <li class="active">@lang('site.edit')</li>
             </ol>
         </section>
         <section class="content">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.add') {{--<small>Quick Exapm</small>--}}</h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.edit') {{--<small>Quick Exapm</small>--}}</h3>
                 </div> <!----End box of header----->
                 <div class="box-body">
 
                     @include('partials._errors')
 
-                <form action="{{route('dashboard.users.store')}}" method="POST">
+                <form action="{{route('dashboard.users.update' ,$user->id)}}" method="POST">
                     @csrf
-                    {{--method_field('post')--}}
+                    {{method_field('put')}}
                         <div class="form-group">
                             <label>@lang('site.first_name')</label>
-                            <input type="text" name="first_name" class="form-control" value="{{old('first_name')}}">
+                            <input type="text" name="first_name" class="form-control" value="{{$user->first_name}}">
                         </div>
 
 
                         <div class="form-group">
                             <label>@lang('site.last_name')</label>
-                            <input type="text" name="last_name" class="form-control" value="{{old('last_name')}}">
+                            <input type="text" name="last_name" class="form-control" value="{{$user->last_name}}">
                         </div>
 
                         <div class="form-group">
                             <label>@lang('site.email')</label>
-                            <input type="email" name="email" class="form-control" value="{{old('email')}}">
+                            <input type="email" name="email" class="form-control" value="{{$user->email}}">
                         </div>
 
                         <div class="form-group">
                             <label>@lang('site.address')</label>
-                            <input type="text" name="address" class="form-control" value="{{old('address')}}">
+                            <input type="text" name="address" class="form-control" value="{{$user->address}}">
                         </div>
 
                         <div class="form-group">
                             <label>@lang('site.gender')</label>
-                            <input type="text" name="gender" class="form-control" value="{{old('gender')}}">
+                            <input type="text" name="gender" class="form-control" value="{{$user->gender}}">
                         </div>
 
                         <div class="form-group">
                             <label>@lang('site.UserJob')</label>
-                            <input type="text" name="UserJob" class="form-control" value="{{old('UserJob')}}">
+                            <input type="text" name="UserJob" class="form-control" value="{{$user->UserJob}}">
                         </div>
 
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>@lang('site.password')</label>
                             <input type="password" name="password" class="form-control">
                         </div>
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <label>@lang('site.password.confirmation')</label>
                             <input type="password" name="password_confirmation" class="form-control">
-                        </div>
+                        </div> --}}
                         
                               <div class="form-group">
                               <h4 class="mt-5 ">@lang('site.permissions')</h4>
@@ -86,7 +86,7 @@
                                     <div class="form-check" style="padding: 20px 0px;display: flex; justify-content: space-around; text-justify: auto " >
                                        
                                         @foreach ($maps as $map)
-                                            <input type="checkbox" class="form-check-input" name="permissions[]" value="{{ $model }}_{{$map}}">@lang('site.'.$map)
+                                            <input type="checkbox" class="form-check-input" name="permissions[]" {{$user->hasPermission($model.'_'.$map)  ? 'checked' : ''}} value="{{ $model }}_{{$map}}">@lang('site.'.$map)
                                         @endforeach
                                 
                                     </div>
@@ -95,7 +95,7 @@
                               </div>
     
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary"><i class=" fa fa-plus">@lang('site.add')</i></button>
+                                <button type="submit" class="btn btn-primary"><i class=" fa fa-plus">@lang('site.edit')</i></button>
                             </div>
                         </div> 
 

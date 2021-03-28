@@ -98,7 +98,7 @@
         {{--<!-- Logo -->--}}
         <a href="{{ asset('dashboard') }}/index2.html" class="logo">
             {{--<!-- mini logo for sidebar mini 50x50 pixels -->--}}
-            <span class="logo-mini"><b>@lang('site.titlesm')</span>
+            <span class="logo-mini"><b>@lang('site.title')</span>
             <span class="logo-lg"><b>@lang('site.title')</span>
         </a>
 
