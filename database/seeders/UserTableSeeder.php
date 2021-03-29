@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
             'last_name'  => 'admin',
             'email'      => 'super_admin@gmail.com',
             'address'    => 'Khartoum',
+            'mobile'     => '0920016568',
             'gender'     => 'mal',
             'UserJob'    => 'doctor',
             'password'   =>bcrypt('123456') ,

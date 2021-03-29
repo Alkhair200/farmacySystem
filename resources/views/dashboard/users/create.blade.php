@@ -20,7 +20,7 @@
 
                 <form action="{{route('dashboard.users.store')}}" method="POST">
                     @csrf
-                    {{--method_field('post')--}}
+                    {{ method_field('post') }}
                         <div class="form-group">
                             <label>@lang('site.first_name')</label>
                             <input type="text" name="first_name" class="form-control" value="{{old('first_name')}}">
@@ -43,15 +43,39 @@
                         </div>
 
                         <div class="form-group">
-                            <label>@lang('site.gender')</label>
-                            <input type="text" name="gender" class="form-control" value="{{old('gender')}}">
+                            <label>@lang('site.mobile')</label>
+                            <input type="text" name="mobile" class="form-control" value="{{old('mobile')}}">
                         </div>
 
-                        <div class="form-group">
-                            <label>@lang('site.UserJob')</label>
-                            <input type="text" name="UserJob" class="form-control" value="{{old('UserJob')}}">
-                        </div>
+                      @php
+                        $userJobs = ['مدير صيدليه','صيدلي أول','عامل',];
+                      @endphp
+            <div class="form-group">
+                <label>@lang('site.UserJob')</label>
+                    <select class="form-control" name="UserJob"  style="height: 44px">
+                        <optgroup label="@lang('site.UserJob_disc')">
+                            <option value="" selected style="display: none"></option>
+                            @foreach ($userJobs as $job)
+                                <option value="{{$job}}">{{$job}}</option>
+                            @endforeach
+                       </optgroup>
+                    </select>
+            </div>
 
+                         @php
+                           $gender = ['ذكر','انثي'];
+                        @endphp
+            <div class="form-group">
+                <label>@lang('site.gender')</label>
+                    <select class="form-control" name="gender"  style="height: 44px">
+                        <optgroup label="@lang('site.gender_disc')">
+                            <option value="" selected style="display: none"></option>
+                                @foreach ($gender as $item)
+                                   <option value="{{$item}}">{{$item}}</option>
+                                @endforeach
+                        </optgroup>
+                    </select>
+            </div>
 
                         <div class="form-group">
                             <label>@lang('site.password')</label>

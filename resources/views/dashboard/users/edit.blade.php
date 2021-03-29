@@ -42,15 +42,42 @@
                             <input type="text" name="address" class="form-control" value="{{$user->address}}">
                         </div>
 
-                        <div class="form-group">
-                            <label>@lang('site.gender')</label>
-                            <input type="text" name="gender" class="form-control" value="{{$user->gender}}">
+                           <div class="form-group">
+                            <label>@lang('site.mobile')</label>
+                            <input type="text" name="mobile" class="form-control" value="{{$user->mobile}}">
                         </div>
 
-                        <div class="form-group">
-                            <label>@lang('site.UserJob')</label>
-                            <input type="text" name="UserJob" class="form-control" value="{{$user->UserJob}}">
-                        </div>
+                        @php
+                        $userJobs = ['مدير صيدليه','صيدلي أول','عامل',];
+                      @endphp
+            <div class="form-group">
+                <label>@lang('site.UserJob')</label>
+                    <select class="form-control" name="UserJob"  style="height: 44px">
+                        <optgroup label="@lang('site.UserJob_disc')">
+                            @foreach ($userJobs as $job)
+                                <option value="{{$job}}"
+                                 @if ($user->UserJob == $job) selected
+                                @endif>{{$job}}</option>
+                            @endforeach
+                       </optgroup>
+                    </select>
+            </div>
+
+                     @php
+                       $gender = ['ذكر','انثي'];
+                    @endphp
+            <div class="form-group">
+                <label>@lang('site.gender')</label>
+                    <select class="form-control" name="gender"  style="height: 44px">
+                        <optgroup label="@lang('site.gender_disc')">
+                                @foreach ($gender as $item)
+                                   <option value="{{$item}}"
+                                    @if ($user->gender == $item) selected
+                                   @endif>{{$item}}</option>
+                                @endforeach
+                        </optgroup>
+                    </select>
+            </div>
 
 
                         {{-- <div class="form-group">

@@ -9,7 +9,7 @@ Route::middleware(['auth'])->group(function(){
 // user Route
 Route::resource('users', UserController::class)->except(['show']);
 
-// Route::get('/test', function () {
-//     return "Hello";
-// });
+Route::get('/test', function () {
+    return "Not Found (:";
+});
 });

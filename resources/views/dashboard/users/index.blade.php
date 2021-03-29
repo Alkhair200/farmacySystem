@@ -44,6 +44,7 @@
                                 <th>@lang('site.address')</th>
                                 <th>@lang('site.gender')</th>
                                 <th>@lang('site.UserJob')</th>
+                                <th>@lang('site.mobile')</th>
                                 {{-- <th>@lang('site.CurrentUser')</th> --}}
                                 <th>@lang('site.action')</th>
                             </tr>
@@ -60,9 +61,11 @@
                                 <td>{{$user -> address}}</td>
                                 <td>{{$user -> gender}}</td>
                                 <td>{{$user -> UserJob}}</td>
+                                <td>{{$user -> mobile}}</td>
                                 <td>
                                        @if (auth()->user()->hasPermission('users_update'))
                                        <a href="{{route('dashboard.users.edit',$user->id)}}" class="btn btn-info"><i class="fa fa-edit" style="padding-left: 5px"></i>@lang('site.edit')</a>
+                                       <a href="#" class="btn btn-primary"><i class="fa fa-print" style="padding-left: 5px"></i>@lang('site.print')</a>
                                    @else
                                       <button type="text" class="btn btn-info disabled"><i class="fa fa-edit" style="padding-left: 5px"></i>@lang('site.edit')</button>
                                    @endif
