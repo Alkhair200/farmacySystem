@@ -16,14 +16,14 @@
             <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li>
 
             @if (auth()->user()->hasPermission('users_create'))
-            <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li>
+            <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.employeess')</span></a></li>
             @endif 
 
-            {{-- @if (auth()->user()->hasPermission('read_categories'))
-            <li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-th"></i><span>@lang('site.categories')</span></a></li>
+             @if (auth()->user()->hasPermission('users_create'))
+            <li><a href="{{ route('dashboard.UserContract.index') }}"><i class="fa fa-th"></i><span>@lang('site.UserContractJob')</span></a></li>
             @endif
 
-            @if (auth()->user()->hasPermission('read_products'))
+            {{-- @if (auth()->user()->hasPermission('read_products'))
             <li><a href="{{ route('dashboard.products.index') }}"><i class="fa fa-th"></i><span>@lang('site.products')</span></a></li>
             @endif
 

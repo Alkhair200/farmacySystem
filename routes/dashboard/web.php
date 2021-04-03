@@ -9,6 +9,12 @@ Route::middleware(['auth'])->group(function(){
 // user Route
 Route::resource('users', UserController::class)->except(['show']);
 
+// uesr conract
+Route::resource('UserContract', UserContract::class)->except(['show']);
+
+// // uesr conract
+// Route::get('/UserContract/{id}', UserContract::class)->except(['show']);
+
 Route::get('/test', function () {
     return "Not Found (:";
 });
